@@ -1,0 +1,56 @@
+CREATE TABLE `Cliente` (
+	`cep` VARCHAR(50) NULL DEFAULT NULL COLLATE 'latin1_swedish_ci',
+	`logradouro` VARCHAR(50) NULL DEFAULT NULL COLLATE 'latin1_swedish_ci',
+	`numero` VARCHAR(50) NULL DEFAULT NULL COLLATE 'latin1_swedish_ci',
+	`cidade` VARCHAR(50) NULL DEFAULT NULL COLLATE 'latin1_swedish_ci',
+	`uf` VARCHAR(50) NULL DEFAULT NULL COLLATE 'latin1_swedish_ci',
+	`complemento` VARCHAR(50) NULL DEFAULT NULL COLLATE 'latin1_swedish_ci',
+	`bairro` VARCHAR(50) NULL DEFAULT NULL COLLATE 'latin1_swedish_ci',
+	`email` VARCHAR(50) NULL DEFAULT NULL COLLATE 'latin1_swedish_ci',
+	`senha` VARCHAR(50) NULL DEFAULT NULL COLLATE 'latin1_swedish_ci',
+	`idCliente` INT(11) NOT NULL AUTO_INCREMENT,
+	`nivel` VARCHAR(50) NULL DEFAULT NULL COLLATE 'latin1_swedish_ci',
+	`tipo_pessoa` VARCHAR(50) NULL DEFAULT NULL COLLATE 'latin1_swedish_ci',
+	PRIMARY KEY (`idCliente`) USING BTREE
+)
+COLLATE='latin1_swedish_ci'
+ENGINE=InnoDB
+AUTO_INCREMENT=78
+;
+
+
+CREATE TABLE `Pessoa_Fisica` (
+	`cpf` VARCHAR(50) NULL DEFAULT NULL COLLATE 'latin1_swedish_ci',
+	`idade` INT(10) NULL DEFAULT NULL,
+	`dataDeNascimento` DATE NULL DEFAULT NULL,
+	`idPF` INT(11) NOT NULL AUTO_INCREMENT,
+	`fkCliente` INT(11) NOT NULL DEFAULT '0',
+	`nome` VARCHAR(50) NULL DEFAULT NULL COLLATE 'latin1_swedish_ci',
+	PRIMARY KEY (`idPF`) USING BTREE,
+	INDEX `fkCliente` (`fkCliente`) USING BTREE,
+	CONSTRAINT `fkCliente` FOREIGN KEY (`fkCliente`) REFERENCES `Cliente` (`idCliente`) ON UPDATE CASCADE ON DELETE CASCADE
+)
+COLLATE='latin1_swedish_ci'
+ENGINE=InnoDB
+AUTO_INCREMENT=27
+;
+
+
+CREATE TABLE `Pessoa_Juridica` (
+	`idPJ` INT(11) NOT NULL AUTO_INCREMENT,
+	`cnpj` VARCHAR(50) NOT NULL DEFAULT '0' COLLATE 'latin1_swedish_ci',
+	`razao` VARCHAR(50) NOT NULL DEFAULT '0' COLLATE 'latin1_swedish_ci',
+	`fantasia` VARCHAR(50) NOT NULL DEFAULT '0' COLLATE 'latin1_swedish_ci',
+	`fkClientepj` INT(11) NOT NULL DEFAULT '0',
+	PRIMARY KEY (`idPJ`) USING BTREE,
+	INDEX `fkClientepj` (`fkClientepj`) USING BTREE,
+	CONSTRAINT `fkClientepj` FOREIGN KEY (`fkClientepj`) REFERENCES `Cliente` (`idCliente`) ON UPDATE CASCADE ON DELETE CASCADE
+)
+COLLATE='latin1_swedish_ci'
+ENGINE=InnoDB
+AUTO_INCREMENT=28
+;
+
+
+
+
